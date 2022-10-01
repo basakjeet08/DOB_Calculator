@@ -13,36 +13,36 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val btnDatePicker:Button = findViewById(R.id.btnDatePicker)
-        val myCalendar = Calendar.getInstance()
         val tvSelectedDate : TextView = findViewById(R.id.tvSelectedDate)
-        val year = myCalendar.get(Calendar.YEAR)
-        val month = myCalendar.get(Calendar.MONTH)
-        val day = myCalendar.get(Calendar.DAY_OF_MONTH)
-        tvSelectedDate.text = "$day/${month+1}/$year"
+        val myCalendar = Calendar.getInstance()
+        val currentYear = myCalendar.get(Calendar.YEAR)
+        val currentMonth = myCalendar.get(Calendar.MONTH)
+        val currentDay = myCalendar.get(Calendar.DAY_OF_MONTH)
+        tvSelectedDate.text = "$currentDay/${currentMonth+1}/$currentYear"
 
         btnDatePicker.setOnClickListener {
-            clickDatePicker(day,month,year,tvSelectedDate)
+            clickDatePicker(currentDay,currentMonth,currentYear,tvSelectedDate)
         }
     }
-    private fun clickDatePicker(day:Int , month:Int , year:Int , tvSelectedDate : TextView){
+    private fun clickDatePicker(currentDay:Int , currentMonth:Int , currentYear:Int , tvSelectedDate : TextView){
         DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view , selectedYear , selectedMonth , dayOfMonth ->
             tvSelectedDate.text = "$dayOfMonth/${selectedMonth+1}/$selectedYear"
-            val todayDate = year*365 + day + when(month+1){
+            val todayDate = (currentYear*365 + currentDay + when(currentMonth+1){
                 1,3,5,7,9,11 -> 31
                 4,6,8,10,12 -> 30
                 else -> 27
-            }
-            val bodDate = selectedYear*365 + dayOfMonth + when(selectedMonth+1){
+            })*1440
+            val bodDate = (selectedYear*365 + dayOfMonth + when(selectedMonth+1){
                 1,3,5,7,9,11 -> 31
                 4,6,8,10,12 -> 30
                 else -> 27
-            }
-            val differenceInDays = todayDate - bodDate
+            })*1440
+            val differenceInMinutes = todayDate - bodDate
 
             val tvTimeInMin : TextView = findViewById(R.id.tvTimeInMin)
-            tvTimeInMin.text = "$differenceInDays"
+            tvTimeInMin.text = "$differenceInMinutes"
         },
-            year,month,day
+            currentYear,currentMonth,currentDay
         ).show()
     }
 }
