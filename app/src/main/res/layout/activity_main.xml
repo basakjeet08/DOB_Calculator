@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textSize="16sp"
-        android:text="IN MINUTES"
+        android:text="IN DAYS"
         android:textColor="@color/textColor"
         android:textStyle="bold"
         />
@@ -70,11 +70,12 @@
         android:textColor="@color/textColor"
         />
     <TextView
+        android:id="@+id/tvTimeInMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textSize="20sp"
-        android:text="1440"
+        android:text="0"
         android:textColor="@color/chosenTextColor"
         android:textStyle="bold"
         />

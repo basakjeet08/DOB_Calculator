@@ -21,28 +21,22 @@ class MainActivity : AppCompatActivity() {
         val day = myCalendar.get(Calendar.DAY_OF_MONTH)
         tvSelectedDate.text = "$day/${month+1}/$year"
 
-
-
         btnDatePicker.setOnClickListener {
             clickDatePicker(day,month,year,tvSelectedDate)
         }
-
     }
-
     private fun clickDatePicker(day:Int , month:Int , year:Int , tvSelectedDate : TextView){
         DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view , selectedYear , selectedMonth , dayOfMonth ->
-            //Toast.makeText(this,"$dayOfMonth/${selectedMonth+1}/$selectedYear" , Toast.LENGTH_LONG).show()
             tvSelectedDate.text = "$dayOfMonth/${selectedMonth+1}/$selectedYear"
 
             val todayDate = year*365 + month*30 + day
             val bodDate = selectedYear*365 + selectedMonth*30 + dayOfMonth
             val differenceInDays = todayDate - bodDate
 
-
+            val tvTimeInMin : TextView = findViewById(R.id.tvTimeInMin)
+            tvTimeInMin.text = "$differenceInDays"
         },
             year,month,day
         ).show()
-
-        Toast.makeText(this,"$day/${month+1}/$year" , Toast.LENGTH_LONG).show()
     }
 }
