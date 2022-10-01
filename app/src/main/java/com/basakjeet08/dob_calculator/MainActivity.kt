@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import android.widget.TextView
 import java.util.*
 
@@ -28,9 +27,16 @@ class MainActivity : AppCompatActivity() {
     private fun clickDatePicker(day:Int , month:Int , year:Int , tvSelectedDate : TextView){
         DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view , selectedYear , selectedMonth , dayOfMonth ->
             tvSelectedDate.text = "$dayOfMonth/${selectedMonth+1}/$selectedYear"
-
-            val todayDate = year*365 + month*30 + day
-            val bodDate = selectedYear*365 + selectedMonth*30 + dayOfMonth
+            val todayDate = year*365 + day + when(month+1){
+                1,3,5,7,9,11 -> 31
+                4,6,8,10,12 -> 30
+                else -> 27
+            }
+            val bodDate = selectedYear*365 + dayOfMonth + when(selectedMonth+1){
+                1,3,5,7,9,11 -> 31
+                4,6,8,10,12 -> 30
+                else -> 27
+            }
             val differenceInDays = todayDate - bodDate
 
             val tvTimeInMin : TextView = findViewById(R.id.tvTimeInMin)
