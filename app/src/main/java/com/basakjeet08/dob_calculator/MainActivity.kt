@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun clickDatePicker(currentDay:Int , currentMonth:Int , currentYear:Int , tvSelectedDate : TextView){
-        DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view , selectedYear , selectedMonth , dayOfMonth ->
+        val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view , selectedYear , selectedMonth , dayOfMonth ->
             tvSelectedDate.text = "$dayOfMonth/${selectedMonth+1}/$selectedYear"
             val todayDate = (currentYear*365 + currentDay + when(currentMonth+1){
                 1,3,5,7,9,11 -> 31
@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
             tvTimeInMin.text = "$differenceInMinutes"
         },
             currentYear,currentMonth,currentDay
-        ).show()
+        )
+        dpd.datePicker.maxDate = System.currentTimeMillis()
+        dpd.show()
     }
 }
