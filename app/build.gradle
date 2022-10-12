@@ -29,6 +29,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.basakjeet08.dob_calculator'
 }
 
 dependencies {
